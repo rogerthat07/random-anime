@@ -15,12 +15,12 @@ public class KitsuApi {
     @Autowired
     private RestTemplate restTemplate;
     
-    public ResponsePojo fetchAnime(){
+    public ResponsePojo fetchAnime(String URL, Integer OFFSET){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json, application/vnd.api+json");
         HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
         //ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class, param);
-        String url = "https://kitsu.io/api/edge/anime?sort=popularityRank&page[limit]=1";
+        String url = URL+OFFSET;
         ResponsePojo response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, ResponsePojo.class).getBody();
         return response;
     }

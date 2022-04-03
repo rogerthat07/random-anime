@@ -1,56 +1,144 @@
 <!DOCTYPE HTML>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8"/>
-    <title>Homepage</title>
 
-    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+<head>
+    <meta charset="UTF-8" />
+    <title>Homepage</title>
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} " />
+    <style>
+        .card-text ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+            font-size: 12px;
+        }
+        .card-text li {
+            display: flex;
+            flex-wrap: wrap;
+            margin-bottom: 5px;
+        }
+        .card-text li>strong {
+            width: 100px;
+            max-width: 35%;
+        }
+        .card-text li>span {
+            max-width: 65%;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        b, strong {
+            font-weight: bolder;
+        }
+    </style>
 </head>
+
 <body>
 
-<!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+        <div class="container">
+            <a class="navbar-brand" href="/">Random Anime</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="/">Home
+                            <span class="sr-only">(current)</span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
     <div class="container">
-        <a class="navbar-brand" href="/">Random anime</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
-                aria-controls="navbarResponsive"
-                aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarResponsive">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home
-                        <span class="sr-only">(current)</span>
-                    </a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">About</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Contact</a>
-                </li>
-            </ul>
+        <div class="row">
+            <div class="col-md-12 mt-4 mb-2">
+                <img class="card-img-top" data-src="" alt="" style="height: 400px; width: 100%; display: block;" th:src="${cover}">
+            </div>
+        </div>
+        <div class="row">
+            <!-- <div class="col-md-1"></div> -->
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3 position-sticky mb-4">
+                        <div class="card-body mb-4">
+                            <img class="card-img-top" style="height: 400px; width: 100%; margin-top: -60%;" th:src="${poster}">
+                        </div>
+
+                        <div class="card-body mb-4">
+                            <h5 class="card-title">Watch online</h5>
+                            <div class="card-text">
+                                <a th:href="'https://www.hulu.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Hulu</a>
+                                <a th:href="'https://www.funimation.com/shows/'+${anime.getSlug()}+'/videos/episodes'" type="button" class="btn btn-primary mb-1">Funimation</a>
+                                <a th:href="'http://www.crunchyroll.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Crunchyroll</a>
+                                <a th:href="'http://9anime.vc/watch/'+${anime.getSlug()}" type="button" class="btn btn-primary">9anime</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                        <h4 th:text="${anime.getCanonicalTitle()}"></h4>
+                        <p th:text="${description}"></p>
+                        <hr/>
+                        <h5 th:text="'❤️ Rank#'+${anime.getPopularityRank()}"></h5>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="card">
+                            <div class="card-body">
+                                <h5 class="card-title">Anime Details</h5>
+                                <div class="card-text">
+                                    <ul>
+                                        <li>
+                                            <strong>Title</strong>
+                                            <span th:text="${anime.getCanonicalTitle()}"></span>
+                                        </li>
+                                        <li>
+                                            <strong>Japanese</strong>
+                                            <span th:text="${anime.getTitles().getJaJp()}"></span>
+                                        </li>
+                                        <li>
+                                            <strong>Type</strong>
+                                            <span th:text="${anime.getShowType()}"></span>
+                                        </li>
+                                        <li>
+                                            <strong>Episodes</strong>
+                                            <span th:text="${anime.getEpisodeCount()}">0</span>
+                                        </li>
+                                        <li>
+                                            <strong>Status</strong>
+                                            <span th:text="${anime.getStatus()}"></span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-1"></div> -->
         </div>
     </div>
-</nav>
-
-<div class="container">
-    <div class="row">
-        <div class="col-lg-10 mt-5 mb-5">
-        </div>
-    </div>
-</div>
 
 
-<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
-<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
-<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+    <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+    <script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+    <script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
 
-<script>
+    <script>
 
 
-</script>
+    </script>
 
 </body>
+
 </html>
