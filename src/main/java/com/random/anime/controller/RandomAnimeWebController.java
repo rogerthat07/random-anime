@@ -29,13 +29,7 @@ public class RandomAnimeWebController {
         System.out.println(responsePojo);
         String description = responsePojo.getData().get(0).getAttributes().getDescription();
         String poster = responsePojo.getData().get(0).getAttributes().getPosterImage().getOriginal();
-        String cover = null;
-        CoverImage coverImage = responsePojo.getData().get(0).getAttributes().getCoverImage();
-        if(coverImage==null){
-            cover = "https://kitsu.io/images/default_cover-22e5f56b17aeced6dc7f69c8d422a1ab.png";
-        }else{
-            cover = coverImage.getOriginal();
-        }
+        String cover = responsePojo.getData().get(0).getAttributes().getCoverImage().getOriginal();
         OFFSET = responsePojo.getMeta().getCount();
         Attributes attributes = responsePojo.getData().get(0).getAttributes();
         model.addAttribute("description", description);

@@ -10,9 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class PosterImage {
+public class PosterImage implements DefaultImage {
     private String tiny;
     private String large;
     private String small;
     private String original;
+
+    public PosterImage setAllToDefault() {
+        this.tiny = DefaultImage.DEFAULT;
+        this.large = DefaultImage.DEFAULT;
+        this.original = DefaultImage.DEFAULT;
+        this.small = DefaultImage.DEFAULT;
+        return this;
+    }
 }

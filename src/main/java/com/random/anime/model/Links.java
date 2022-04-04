@@ -11,4 +11,6 @@ public class Links {
     private String first;
     private String next;
     private String last;
+    private String self;
+    private String related;
 }

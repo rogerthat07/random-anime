@@ -10,9 +10,17 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CoverImage {
+public class CoverImage implements DefaultImage {
     private String tiny;
     private String large;
     private String small;
     private String original;
+
+    public CoverImage setAllToDefault(){
+        this.tiny = DefaultImage.DEFAULT;
+        this.large = DefaultImage.DEFAULT;
+        this.original = DefaultImage.DEFAULT;
+        this.small = DefaultImage.DEFAULT;
+        return this;
+    }
 }

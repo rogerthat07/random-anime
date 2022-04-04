@@ -37,6 +37,6 @@ public class Attributes {
     private Integer episodeCount;
     private Integer episodeLength;
     private Integer totalLength;
-    private String youtubeVideoId;
+    private String youtubeVideoId=null;
     private String showType;
 }

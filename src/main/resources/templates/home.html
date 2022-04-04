@@ -36,7 +36,7 @@
 <body>
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark static-top">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container">
             <a class="navbar-brand" href="/">Random Anime</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive"
@@ -61,9 +61,9 @@
         </div>
     </nav>
 
-    <div class="container">
+    <div class="container-fluid">
         <div class="row">
-            <div class="col-md-12 mt-4 mb-2">
+            <div class="col-md-12 mt-6 mb-2">
                 <img class="card-img-top" data-src="" alt="" style="height: 400px; width: 100%; display: block;" th:src="${cover}">
             </div>
         </div>
@@ -82,7 +82,7 @@
                                 <a th:href="'https://www.hulu.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Hulu</a>
                                 <a th:href="'https://www.funimation.com/shows/'+${anime.getSlug()}+'/videos/episodes'" type="button" class="btn btn-primary mb-1">Funimation</a>
                                 <a th:href="'http://www.crunchyroll.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Crunchyroll</a>
-                                <a th:href="'http://9anime.vc/watch/'+${anime.getSlug()}" type="button" class="btn btn-primary">9anime</a>
+                                <a th:href="'http://9anime.vc/watch/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">9anime</a>
                             </div>
                         </div>
                     </div>
@@ -122,10 +122,13 @@
                                 </div>
                             </div>
                         </div>
+                        <a th:if="${anime ne null and anime.getYoutubeVideoId() ne null and anime.getYoutubeVideoId() ne ''}" th:href="'https://youtube.com/watch?v='+${anime?.getYoutubeVideoId}" type="button"
+                            class="btn btn-primary mb-1 btn-block mt-2">
+                            Watch Trailer
+                        </a>
                     </div>
                 </div>
             </div>
-            <!-- <div class="col-md-1"></div> -->
         </div>
     </div>
 

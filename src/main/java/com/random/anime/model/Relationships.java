@@ -10,9 +10,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Datum {
-    private String id;
-    private String type;
-    private Attributes attributes;
-    private Relationships relationships;
+public class Relationships {
+    private StreamingLinks streamingLinks;
 }
