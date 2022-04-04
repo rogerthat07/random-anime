@@ -79,7 +79,7 @@
                         <div class="card-body mb-4" th:if="${streamingLinks.getMeta().count!=0}">
                             <h5 class="card-title">Watch online</h5>
                             <div class="card-text" th:each="data:${streamingLinks.getData()}">
-                                <a th:href="${data.getAttributes().getUrl()}" th:text="${data.getAttributes().getUrl().split('/')[2]}" class="btn btn-primary mb-1"></a>
+                                <a th:href="${data.getAttributes().getUrl()}" th:text="${data.getAttributes().getUrl().split('/')[2]}" class="btn btn-primary btn-block mb-1"></a>
                             </div>
                         </div>
                     </div>
