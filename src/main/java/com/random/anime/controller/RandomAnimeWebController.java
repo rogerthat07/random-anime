@@ -1,9 +1,11 @@
 package com.random.anime.controller;
 
+import java.util.List;
 import java.util.Random;
 
 import com.random.anime.model.Attributes;
 import com.random.anime.model.CoverImage;
+import com.random.anime.model.Datum;
 import com.random.anime.model.ResponsePojo;
 import com.random.anime.tools.api.KitsuApi;
 
@@ -27,15 +29,14 @@ public class RandomAnimeWebController {
         int offset = random.nextInt(OFFSET)+1;
         ResponsePojo responsePojo = api.fetchAnime(URL, offset);
         System.out.println(responsePojo);
-        String description = responsePojo.getData().get(0).getAttributes().getDescription();
-        String poster = responsePojo.getData().get(0).getAttributes().getPosterImage().getOriginal();
-        String cover = responsePojo.getData().get(0).getAttributes().getCoverImage().getOriginal();
         OFFSET = responsePojo.getMeta().getCount();
-        Attributes attributes = responsePojo.getData().get(0).getAttributes();
-        model.addAttribute("description", description);
-        model.addAttribute("cover", cover);
-        model.addAttribute("poster", poster);
-        model.addAttribute("anime", attributes);
+        Attributes anime = responsePojo.getData().get(0).getAttributes();
+        String streamingLinksURL = responsePojo.getData().get(0).getRelationships().getStreamingLinks().getLinks().getRelated();
+        System.out.println("######################################");
+        System.out.println("Streaming links : "+streamingLinksURL);
+        ResponsePojo responsePojoForLinks = api.fetchStreamingLinks(streamingLinksURL);
+        model.addAttribute("anime", anime);
+        model.addAttribute("streamingLinks", responsePojoForLinks);
         return new ModelAndView("home");
     }
 }

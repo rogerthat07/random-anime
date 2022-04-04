@@ -39,4 +39,5 @@ public class Attributes {
     private Integer totalLength;
     private String youtubeVideoId=null;
     private String showType;
+    private String url;
 }

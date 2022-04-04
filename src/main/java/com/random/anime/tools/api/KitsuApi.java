@@ -16,11 +16,15 @@ public class KitsuApi {
 
     @Autowired
     private RestTemplate restTemplate;
-    
-    public ResponsePojo fetchAnime(String URL, Integer OFFSET){
+
+    public static HttpEntity<Void> getHeaderEnity(){
         HttpHeaders headers = new HttpHeaders();
         headers.set("Accept", "application/json, application/vnd.api+json");
-        HttpEntity<Void> requestEntity = new HttpEntity<>(headers);
+        return new HttpEntity<>(headers);
+    }
+    
+    public ResponsePojo fetchAnime(String URL, Integer OFFSET){
+        HttpEntity<Void> requestEntity = KitsuApi.getHeaderEnity();
         //ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, requestEntity, String.class, param);
         String url = URL+OFFSET;
         ResponsePojo responsePojo = restTemplate.exchange(url, HttpMethod.GET, requestEntity, ResponsePojo.class).getBody();
@@ -30,6 +34,12 @@ public class KitsuApi {
         responsePojo.getData().get(0).getAttributes().setCoverImage(coverImage==null?new CoverImage().setAllToDefault():coverImage);
         responsePojo.getData().get(0).getAttributes().setPosterImage(posterImage==null?new PosterImage().setAllToDefault():posterImage);
             
+        return responsePojo;
+    }
+
+    public ResponsePojo fetchStreamingLinks(String URL){
+        HttpEntity<Void> requestEntity = KitsuApi.getHeaderEnity();
+        ResponsePojo responsePojo = restTemplate.exchange(URL, HttpMethod.GET, requestEntity, ResponsePojo.class).getBody();
         return responsePojo;
     }
 }

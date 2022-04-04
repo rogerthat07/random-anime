@@ -64,7 +64,7 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-12 mt-6 mb-2">
-                <img class="card-img-top" data-src="" alt="" style="height: 400px; width: 100%; display: block;" th:src="${cover}">
+                <img class="card-img-top" data-src="" alt="" style="height: 400px; width: 100%; display: block;" th:src="${anime.getCoverImage().getOriginal()}">
             </div>
         </div>
         <div class="row">
@@ -72,23 +72,20 @@
             <div class="col-md-12">
                 <div class="row">
                     <div class="col-md-3 position-sticky mb-4">
-                        <div class="card-body mb-4">
-                            <img class="card-img-top" style="height: 400px; width: 100%; margin-top: -60%;" th:src="${poster}">
+                        <div class="card-body">
+                            <img class="card-img-top" style="height: 400px; width: 100%; margin-top: -60%;" th:src="${anime.getPosterImage().getOriginal()}">
                         </div>
 
-                        <div class="card-body mb-4">
+                        <div class="card-body mb-4" th:if="${streamingLinks.getMeta().count!=0}">
                             <h5 class="card-title">Watch online</h5>
-                            <div class="card-text">
-                                <a th:href="'https://www.hulu.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Hulu</a>
-                                <a th:href="'https://www.funimation.com/shows/'+${anime.getSlug()}+'/videos/episodes'" type="button" class="btn btn-primary mb-1">Funimation</a>
-                                <a th:href="'http://www.crunchyroll.com/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">Crunchyroll</a>
-                                <a th:href="'http://9anime.vc/watch/'+${anime.getSlug()}" type="button" class="btn btn-primary mb-1">9anime</a>
+                            <div class="card-text" th:each="data:${streamingLinks.getData()}">
+                                <a th:href="${data.getAttributes().getUrl()}" th:text="${data.getAttributes().getUrl().split('/')[2]}" class="btn btn-primary mb-1"></a>
                             </div>
                         </div>
                     </div>
                     <div class="col-md-6 mb-4">
                         <h4 th:text="${anime.getCanonicalTitle()}"></h4>
-                        <p th:text="${description}"></p>
+                        <p th:text="${anime.getDescription()}"></p>
                         <hr/>
                         <h5 th:text="'❤️ Rank#'+${anime.getPopularityRank()}"></h5>
                     </div>
